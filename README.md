@@ -16,4 +16,5 @@
 </ul>
 
 I also made a python script that switches between dark and light variants of my colour scheme!
+
 Now I need to figure out how to use cron properly...
