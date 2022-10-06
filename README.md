@@ -5,13 +5,13 @@
 <ul>
   <li><b>OS:</b> Arch Linux btw</li>
   <li><b>DM:</b> lightdm</li>
-  <li><b>WM:</b> <a href="https://aur.archlinux.org/packages/i3-gaps-rounded-git/">i3-gaps-rounded</a></li>
-  <li><b>Terminal:</b> termite</li>
-  <li><b>Compositor:</b> <a href="https://aur.archlinux.org/packages/compton-tryone-git/">compton-tryone</a></li>
-  <li><b>Colour scheme:</b> Custom-made using Oomox</li>
-  <li><b>Launcher:</b> rofi, i3-dmenu-desktop (I guess)</li>
-  <li><b>Lock screen:</b> i3-lock</li>
-  <li><b>Editor:</b> vim, Atom</li>
+  <li><b>WM:</b> bspwm</li>
+  <li><b>Terminal:</b> Alacritty</li>
+  <li><b>Compositor:</b> <a href="https://github.com/pijulius/picom">picom-pijulius</a></li>
+  <li><b>Colour scheme:</b> pywal</li>
+  <li><b>Launcher:</b> rofi</li>
+  <li><b>Lock screen:</b> betterlockscreen</li>
+  <li><b>Editor:</b> Neovim</li>
   <li><b>Browser:</b> Firefox (something else would be preposterous)</li>
 </ul>
 

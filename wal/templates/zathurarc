@@ -1,0 +1,6 @@
+set recolor true
+set default-bg {color0.rgb}
+set default-fg {color7.rgb}
+set recolor-lightcolor rgba({color0.rgb},0.9) 
+set recolor-darkcolor rgba({color7.rgb},1)
+set recolor-keephue false

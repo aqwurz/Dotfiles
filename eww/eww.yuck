@@ -1,0 +1,84 @@
+(defpoll schedule_listen :initial "(label :class 'header' :text 'No events :|')" :interval "100s" "python ~/.config/eww/scripts/icsreader.py")
+(defpoll artist :initial "Nothing is currently playing" :interval "1s" "~/.config/eww/scripts/musicstatus.sh artist")
+(defpoll track :initial "Start ncmpcpp and begin listening..." :interval "1s" "~/.config/eww/scripts/musicstatus.sh title")
+(defpoll cover :initial "/tmp/mpd_cover.jpg" :interval "1s" "~/.config/eww/scripts/cover.sh")
+(defpoll symbol :initial "" :interval "1s" "~/.config/eww/scripts/playpause.sh")
+
+(defwidget cal []
+    (calendar :class "cal"
+        :onclick "eww update schedule_listen=\"$(python ~/.config/eww/scripts/icsreader.py {0}.{1}.{2})\""))
+
+(defwidget schedule [H]
+    (box :class "schedule" 
+         :halign "start" :valign "start" :hexpand true :space-evenly false
+         (scroll :height H :hscroll false :vscroll true (literal :content schedule_listen))))
+
+(defwidget music []
+    (box :class "music"
+        :halign "start" :valign "start"
+        :hexpand false
+        :space-evenly false
+        :anchor "bottom"
+        (image :path cover
+            :halign "start"
+            :image-width 120
+            :style "margin-right: 15px;")
+        (box :orientation "v" :space-evenly false :valign "center" :halign "start"
+            (label :xalign 0 :style "font-weight: 700;" :text artist :width 150 :wrap true)
+            (label :xalign 0 :text track :width 150 :wrap true)
+            (box :orientation "h" :halign "start" :width 150
+                (button :class "mb" :onclick "mpc prev" "")
+                (button :class "mb" :onclick "mpc stop" "")
+                (button :class "mb" :onclick "mpc toggle" symbol)
+                (button :class "mb" :onclick "mpc next" "")))))
+
+(defwidget eventnormal [calendar title time location description]
+    (box :space-evenly false :orientation "v" :class "event ${calendar}"
+        (box :space-evenly false :orientation "v" :halign "start" :valign "start"
+            (label :xalign 0 :style "font-weight: 700;" :wrap true :text title)
+            (label :xalign 0 :text time)
+            (box :space-evenly false 
+                :orientation "v" :halign "start" :valign "start" 
+                :class "eventinner"
+                    (label :xalign 0 :wrap true :text location)
+                    (label :width 300 :wrap true :xalign 0 :text description)))))
+
+(defwidget eventallday [calendar title time]
+    (box :space-evenly false :orientation "v" :class "event ${calendar}"
+        (box :space-evenly false :orientation "v" :halign "start" :valign "start" 
+            (label :xalign 0 :style "font-weight: 700;" :wrap true :text title)
+            (label :halign "start" :text time))))
+
+(defwindow tasks
+    :monitor 0
+    :class "tasks"
+    :geometry (geometry :x "0%"
+                        :y "40px"
+                        :width "300px"
+                        :height "1040px"
+                        :anchor "top right")
+    :stacking "fg"
+    :reserve (struts :distance "40px" :side "top")
+    (box :orientation "v" 
+        :space-evenly false 
+        :class "mainbox" 
+        (cal) 
+        (schedule :H 624) 
+        (music)))
+
+(defwindow tasks1
+    :monitor 1
+    :class "tasks"
+    :geometry (geometry :x "0%"
+                        :y "40px"
+                        :width "300px"
+                        :height "100%"
+                        :anchor "top right")
+    :stacking "fg"
+    :reserve (struts :distance "40px" :side "top")
+    (box :orientation "v" 
+        :space-evenly false 
+        :class "mainbox" 
+        (cal) 
+        (schedule :H 743) 
+        (music)))

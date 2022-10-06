@@ -1,0 +1,22 @@
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc
+
+call plug#begin()
+Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+call plug#end()
+
+lua << EOF
+require('neorg').setup {
+    load = {
+        ["core.defaults"] = {}
+    }
+}
+require('nvim-treesitter.configs').setup {
+    ensure_installed = { "norg", --[[ other parsers you would wish to have ]] },
+    highlight = { -- Be sure to enable highlights if you haven't!
+        enable = true,
+    }
+}
+EOF

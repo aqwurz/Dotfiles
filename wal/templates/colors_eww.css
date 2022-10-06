@@ -1,0 +1,17 @@
+.background {{
+    background-color: {color0};
+    color: {color7};
+}}
+.event {{
+    background-color: {color6};
+    color: {color7};
+    border-left: 5px solid {color6};
+}}
+.mb {{
+    background-color: {color6};
+    color: {color7};
+}}
+.cal *:selected {{
+    all: unset;
+    color: {color3};
+}}

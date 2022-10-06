@@ -1,0 +1,22 @@
+@import url(https://enhanceddiscord.com/theme.css);
+
+.theme-dark {{
+    --bg: url();
+    --bg-overlay: {background};
+    --accent: {color6};
+    --accent-bright: {color6};
+    --accent-back: {color5.rgba};
+    --accent-back-bright: {color5.rgba};
+    --icon-color: {color3.rgba};
+    --link-color: {color5};
+    --link-color-hover: {color6};
+    --popup-background: {color2};
+    --popup-highlight: {color2};
+    --popup-foreground: {color7};
+    --unread-color: var(--accent-bright);
+    --typing-height: 25px;
+    --gift-button: none;
+    --gif-picker: none;
+    --header-primary: {color7};
+    --text-normal: {color7};
+}}

@@ -1,0 +1,17 @@
+NAME="follow xresources theme"
+NOGUI=True
+BG={color0.strip}
+FG={color7.strip}
+TXT_BG={background.strip}
+TXT_FG={color7.strip}
+SEL_BG={color6.strip}
+SEL_FG={color0.strip}
+HDR_BG={background.strip}
+HDR_FG={foreground.strip}
+BTN_BG={color12.strip}
+BTN_FG={color0.strip}
+WM_BORDER_FOCUS={color3.strip}
+ICONS_LIGHT_FOLDER={color13.strip}
+ICONS_LIGHT={color9.strip}
+ICONS_MEDIUM={color1.strip}
+ICONS_DARK={color5.strip}

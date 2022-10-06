@@ -1,0 +1,12 @@
+gkm 1
+g keys {color2.strip}
+g fkeys {color3.strip}
+g indicators {color2.strip}
+g modifiers {color4.strip}
+g multimedia {color5.strip}
+g arrows {color3.strip}
+g numeric {color2.strip}
+g functions {color4.strip}
+k capslock {color4.strip}
+c
+fx breathing logo {color2.strip} 3000ms

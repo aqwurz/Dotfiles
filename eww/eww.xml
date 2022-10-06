@@ -1,0 +1,37 @@
+<eww>
+    <includes>
+    
+    </includes>
+
+    <definitions>
+        <def name="chrono">
+            <box>
+                Hello again, {{username}}
+
+                {{date}}
+                {{time}}
+            </box>
+        </def>
+        <def name="main">
+            <box>
+                <chrono/>
+            </box>
+        </def>
+    </definitions>
+
+    <variables>
+        <script-var name="date" interval="30s">date "+%A, the %d of %B 1%Y"</script-var>
+        <script-var name="time" interval="30s">date +%H:%M</script-var>
+        <script-var name="username" interval="1h">id -un</script-var>
+    </variables>
+
+    <windows>
+        <window name="main_window" stacking="fg" focusable="false" screen="1">
+            <geometry anchor="top right" x="1920px" y="40px" width="25%" height="20px"/>
+            <reserve side="left" distance="50px"/>
+            <widget>
+                <main/>
+            </widget>
+        </window>
+    </windows>
+</eww>

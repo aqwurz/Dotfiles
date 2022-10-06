@@ -1,0 +1,16 @@
+configuration {
+  show-icons:      true;
+  icon-theme:      "Papirus";
+  cycle:           true;
+  hide-scrollbar:  true;
+  disable-history: false;
+  monitor:         "-4";
+  modi:            "drun";
+  display-drun:    "apps";
+  columns:         2;
+}
+
+//@theme "/home/antoine/.config/rofi/themes/apps.rasi"
+//@theme "/home/antoine/.config/rofi/themes/apps.rasi"
+//@theme "/home/antoine/.config/rofi/themes/appsmenu.rasi"
+@theme "/home/antoine/.config/rofi/themes/apps.rasi"

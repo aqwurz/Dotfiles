@@ -1,0 +1,6 @@
+/*@import "/home/antoine/.cache/wal/colors-rofi-light.rasi"*/
+@import "/home/antoine/.cache/wal/rofi-but-good.rasi"
+* {
+    background: #00000000;
+    /*foreground: #ffffff;*/
+}

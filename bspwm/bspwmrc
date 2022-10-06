@@ -1,0 +1,79 @@
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+# thanks https://github.com/b4skyx/dotfiles/
+if [[ $(xrandr --query | grep "HDMI-1") = HDMI-1\ connected* ]]; then
+    autorandr -l desk-horizontal
+    bspc monitor HDMI-1 -d {0..98..2}
+    bspc monitor eDP-1 -d {1..99..2}
+else
+    autorandr -l mobile
+    bspc monitor -d {0..99}
+fi
+
+. "${HOME}/.cache/wal/colors.sh"
+
+#bspc config border_width                5
+bspc config normal_border_color         "$color1"
+bspc config active_border_color         "$color1"
+bspc config focused_border_color        "$color1"
+bspc config presel_feedback_color       "$color1"
+bspc config window_gap                  20
+bspc config split_ratio                 0.5
+bspc config borderless_monocle          true
+bspc config gapless_monocle             true
+bspc config single_monocle              true
+bspc config focus_follows_pointer       true
+bspc config remove_unplugged_monitors   true
+bspc config remove_disabled_monitors    true
+bspc config pointer_follows_monitor     true
+
+bspc config external_rules_command ~/.config/bspwm/external_rules.sh
+
+bspc rule -a \* border=off
+#bspc rule -a Alacritty border=on
+bspc rule -a Scratchpad state=floating hidden=on #locked=on sticky=on 
+bspc rule -a Picture-in-Picture state=floating sticky=on
+
+#if [[ $(cat ~/.bspwm_inplace) == 0 ]]; then
+if [[ ! $(ps -A | grep redshift) ]]; then
+    setxkbmap -layout 'no,ru,us' -option 'grp:shifts_toggle' -option compose:rctrl-altgr &
+    ibus-daemon -drxR &
+    ibus engine xkb:no::nor &
+    export QT_QPA_PLATFORMTHEME=qt5ct 
+    export QT_AUTO_SCREEN_SCALE_FACTOR=0 
+    export MOZ_X11_EGL=1 
+    export XDG_RUNTIME_DIR=/run/user/$(id -u) 
+    export WINIT_X11_SCALE_FACTOR=1.66666666666667 
+    export GTK_IM_MODULE=ibus 
+    export QT_IM_MODULE=ibus 
+    export XMODIFIERS=@im=ibus 
+    mkfifo /tmp/xobpipe &
+    tail -f /tmp/xobpipe | xob -c ~/.cache/wal/xob.cfg &
+    pkill picom; picom --respect-prop-shadow --detect-rounded-corners &
+    redshift &
+    polybar -r default &
+    polybar -r monitor-normal &
+    libinput-gestures &
+    xscreensaver -no-splash &
+    ~/.config/bspwm/scripts/appear.sh &
+    ~/prog/bkgset.sh same ~/.bkg &
+    pcmanfm -d &
+    xmodmap ~/.Xmodmap &
+    thunderbird --headless &
+    playerctld daemon &
+    mpd &
+    eww daemon &
+    paletted &
+    #betterlockscreen -u ~/.bkg &
+    #g815-led -p ~/.cache/wal/g815profile1 &
+    #python ~/prog/randomreminder.py &
+    #mpv ~/.config/bspwm/scripts/startup.mp3 &
+    dunstify "BSPWM" "bspwm loaded"
+else
+    pkill polybar
+    polybar -r default &
+    polybar -r monitor-normal &
+    mpv ~/.config/bspwm/scripts/notice.mp3 &
+fi

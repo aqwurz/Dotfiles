@@ -1,0 +1,226 @@
+###################
+# SYSTEM CONTROLS #
+###################
+
+XF86TouchpadToggle
+    ~/.config/bspwm/scripts/touchpadtoggle.sh
+
+XF86AudioPlay
+    mpc toggle
+
+XF86AudioPrev
+    mpc prev
+
+XF86AudioNext
+    mpc next
+
+# restart bspwm in-place
+super + r
+    ~/.config/bspwm/scripts/reload_bspwm.sh
+
+# reload sxhkd config
+super + shift + r
+    pkill -USR1 -x sxhkd && dunstify "SXHKD" "config reloaded" && sxhkd &
+
+# powermenu
+mod3 + r
+    ~/.config/rofi/scripts/powermenu.sh
+
+# enable external display, and disable after disconnecting
+# NOTE: for some ungodly reason, fn+f8 is wired to super+p on my laptop
+super + p
+    ~/.config/bspwm/scripts/monitor-flip.sh normal
+
+# toggle light/dark mode
+super + {_,shift + }a
+    ~/prog/bkgset.sh {light,dark} ~/.bkg
+
+# lock the system in various ways
+super + x
+    ~/.config/bspwm/scripts/lock.sh
+super + shift + x
+    xscreensaver-command -lock
+super + alt + x
+    physlock -p "$(source ~/.zshrc)"
+
+###################
+#   WS CONTROLS   #
+###################
+
+# meta_workspaces by mrconter1
+# https://github.com/mrconter1/i3_meta_workspaces
+# adapted for bspwm by me
+
+# focus or send to the given desktop, or do both
+super + {_,shift + ,alt + }{1-9,0}
+    python ~/.config/bspwm/scripts/meta_workspaces.py {-w,-mw,-mwf} {1-9,0}
+
+# change meta workspace
+super + ctrl + {1-9,0}
+    python ~/.config/bspwm/scripts/meta_workspaces.py -m {1-9,""}
+
+# focus next/previous desktop in monitor
+super + {_,shift +}w
+    bspc desktop -f {prev,next}.occupied && bspc node -f newest.local.!floating
+
+###################
+# WINDOW CONTROLS #
+###################
+
+# kill focused window
+mod3 + q
+    bspc node -c
+
+# select window from list
+mod3 + w
+    ~/.config/rofi/scripts/multiscript.sh -w
+
+# toggle scratchpad visibility
+super + t
+    ~/.config/bspwm/scripts/scratchuse.sh
+
+# swap current and biggest windows
+super + s
+    bspc node -s biggest.window
+
+# rotate window layout clockwise
+mod3 + s
+    bspc node any -R 90
+
+# toggle monocle mode
+super + shift + f
+    bspc desktop -l next
+
+# hide window
+super + {_,shift + }h
+    bspc node {focused -g hidden=on,any.hidden -g hidden=off}
+
+# set window state
+#super + {shift + @space,alt + @space,@space,f}
+#    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# the cooler set window state by https://github.com/b4skyx/dotfiles/
+super + @space
+    bspc node focused.tiled -t floating || bspc node focused.floating -t tiled
+super + alt + @space
+    bspc node focused.tiled -t pseudo_tiled || bspc node -t tiled
+super + f
+    bspc node -t fullscreen || bspc node -t tiled
+
+# focus window in direction
+super + {Up,Down,Left,Right}
+    bspc node -f {north,south,west,east}
+
+# move window in direction
+# bspwm_smart_move by Protesilaos Stavrou 
+# https://gitlab.com/protesilaos/dotfiles/-/blob/v2.2.0/bin/bin/bspwm_smart_move
+super + shift + {Up,Down,Left,Right}
+    ~/.config/bspwm/scripts/bspwm_smart_move.sh {north,south,west,east}
+
+# expand window
+mod3 + {Up,Down,Left,Right}
+    bspc node -z {top 0 -10,bottom 0 10,left -10 0,right 10 0}
+
+# contract window doesn't work?
+mod3 + shift + {Up,Down,Left,Right}
+    bspc node -z {bottom 0 -10,top 0 10,right -10 0,left 10 0}
+
+# move floating window
+super + alt + {Up,Down,Left,Right}
+    bspc node -v {0 -10,0 10,-10 0,10 0}
+
+##################
+# MEDIA CONTROLS #
+##################
+
+# control audio
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    ~/.config/bspwm/scripts/volumechange.sh {up,down,mute}
+
+# toggle microphone
+mod3 + Tab
+    ~/.config/bspwm/scripts/mictoggle.sh
+
+# control brightness
+XF86MonBrightness{Up,Down}
+    brightnessctl set {+5%,5%-}
+
+# take a screenshot of all or a selection of the display
+{_,super + }Print
+    scrot '%Y-%m-%d_%H.%M.%S_$wx$h.png' {-e,-sfe} 'mv $f ~/screenshots/'
+
+# take a screenshot of a selection of the display and copy it
+super + shift + Print
+    ~/.config/bspwm/scripts/screenshot_with_copy.sh
+
+# adjust gamma of displays
+super + {_,alt + }{_,shift + }g
+    xrandr --output {HDMI-1,eDP-1} --gamma {1.5,1}
+
+# rotate external screen - monitor-flip by me
+super + {_,alt + ,shift + }v
+    ~/.config/bspwm/scripts/monitor-flip.sh {left,normal,right}
+
+################
+# PROGRAM KEYS #
+################
+
+# open thunderbird
+mod3 + t
+    ~/.config/bspwm/scripts/thunderbird.sh
+
+# launch a program
+super + d
+    ~/.config/rofi/scripts/multiscript.sh -r
+
+# launch a new instance of firefox
+mod3 + f
+    vblank_mode=0 optirun firefox --new-instance
+
+# open terminal
+{super,mod3} + Return
+    WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty
+
+# open a terminal with ncmpcpp
+super + n
+    WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty --class "Music" -e ~/.config/bspwm/scripts/ncmpcpp_launch.sh
+
+#################
+# MISCELLANEOUS #
+#################
+
+# select emoji from list
+mod3 + e
+    rofimoji -a clipboard
+
+# watch a youtube video
+super + y
+    ytfzf -D
+
+# watch a youtube video (I'm feeling lucky)
+super + shift + y
+    ytfzf -aD
+
+# insert greek letters
+mod3 + g
+    rofimoji -a clipboard -f greek_and_coptic
+
+# insert kana
+mod3 + {_,shift + }j
+    rofimoji -a clipboard -f {hiragana,katakana}
+
+# autoclickers (might be unstable)
+super + {_,shift + ,alt + }k
+    xdotool mousedown {3,1,2} && libinput-gestures-setup restart
+
+# shortcut hints (mildly unreadable)
+#super + c
+#    cat .config/sxhkd/sxhkdrc | sed 's/^#.*//g' | sed ':a;N;$!ba;s/\n    / ¦ /g' | sed ':a;N;$!ba;s/\n\{2,12\}/\n/g' | rofi -dmenu
+
+# shortcut hints but good
+super + c
+    palette show
+
+# easter egg
+ctrl + shift + h + Left
+    xdotool type --clearmodifiers hallelujah
