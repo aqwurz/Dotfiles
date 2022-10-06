@@ -16,6 +16,6 @@
   <li><b>Browser:</b> Firefox (something else would be preposterous)</li>
 </ul>
 
-I also made a python script that switches between dark and light variants of my colour scheme!
+I also made a script (bkgset.sh) that switches between dark and light variants of my colour scheme!
 
 Now I need to figure out how to use cron properly...
