@@ -7,6 +7,7 @@
   <li><b>DM:</b> lightdm</li>
   <li><b>WM:</b> bspwm</li>
   <li><b>Terminal:</b> Alacritty</li>
+  <li><b>Shell:</b> zsh</li>
   <li><b>Compositor:</b> <a href="https://github.com/pijulius/picom">picom-pijulius</a></li>
   <li><b>Colour scheme:</b> pywal</li>
   <li><b>Launcher:</b> rofi</li>
