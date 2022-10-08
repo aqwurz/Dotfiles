@@ -3,14 +3,15 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # thanks https://github.com/b4skyx/dotfiles/
-if [[ $(xrandr --query | grep "HDMI-1") = HDMI-1\ connected* ]]; then
-    autorandr -l desk-horizontal
-    bspc monitor HDMI-1 -d {0..98..2}
-    bspc monitor eDP-1 -d {1..99..2}
-else
-    autorandr -l mobile
-    bspc monitor -d {0..99}
-fi
+#if [[ $(xrandr --query | grep "HDMI-1") = HDMI-1\ connected* ]]; then
+#    autorandr -l desk-horizontal
+#    bspc monitor HDMI-1 -d {0..98..2}
+#    bspc monitor eDP-1 -d {1..99..2}
+#else
+#    autorandr -l mobile
+#    bspc monitor -d {0..99}
+#fi
+bspc monitor -d {0..99}
 
 . "${HOME}/.cache/wal/colors.sh"
 
@@ -58,7 +59,7 @@ if [[ ! $(ps -A | grep redshift) ]]; then
     libinput-gestures &
     xscreensaver -no-splash &
     ~/.config/bspwm/scripts/appear.sh &
-    ~/prog/bkgset.sh same ~/.bkg &
+    ~/.config/bkgset.sh same ~/.bkg &
     pcmanfm -d &
     xmodmap ~/.Xmodmap &
     thunderbird --headless &
@@ -69,7 +70,7 @@ if [[ ! $(ps -A | grep redshift) ]]; then
     #betterlockscreen -u ~/.bkg &
     #g815-led -p ~/.cache/wal/g815profile1 &
     #python ~/prog/randomreminder.py &
-    #mpv ~/.config/bspwm/scripts/startup.mp3 &
+    mpv ~/.config/bspwm/scripts/startup.mp3 &
     dunstify "BSPWM" "bspwm loaded"
 else
     pkill polybar
