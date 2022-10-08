@@ -51,7 +51,7 @@ if [[ ! $(ps -A | grep redshift) ]]; then
     export XMODIFIERS=@im=ibus 
     mkfifo /tmp/xobpipe &
     tail -f /tmp/xobpipe | xob -c ~/.cache/wal/xob.cfg &
-    pkill picom; picom --respect-prop-shadow --detect-rounded-corners &
+    pkill picom; picom --experimental-backends --respect-prop-shadow --detect-rounded-corners &
     redshift &
     polybar -r default &
     polybar -r monitor-normal &
