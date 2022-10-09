@@ -1,6 +1,5 @@
-#! /bin/sh
+#! /bin/bash
 
-alacritty &
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # thanks https://github.com/b4skyx/dotfiles/
