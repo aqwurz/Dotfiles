@@ -33,7 +33,7 @@ super + p
 
 # toggle light/dark mode
 super + {_,shift + }a
-    ~/prog/bkgset.sh {light,dark} ~/.bkg
+    ~/.config/bkgset.sh {light,dark} ~/.bkg
 
 # lock the system in various ways
 super + x
@@ -175,7 +175,7 @@ super + d
 
 # launch a new instance of firefox
 mod3 + f
-    vblank_mode=0 optirun firefox --new-instance
+    firefox --new-instance
 
 # open terminal
 {super,mod3} + Return
