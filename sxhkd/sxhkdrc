@@ -155,7 +155,7 @@ super + shift + Print
 
 # adjust gamma of displays
 super + {_,alt + }{_,shift + }g
-    xrandr --output {HDMI-1,eDP-1} --gamma {1.5,1}
+    xrandr --output {DP-0,eDP-1} --gamma {1.5,1}
 
 # rotate external screen - monitor-flip by me
 super + {_,alt + ,shift + }v

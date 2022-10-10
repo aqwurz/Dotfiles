@@ -52,7 +52,7 @@ if [[ ! $(ps -A | grep redshift) ]]; then
     export XMODIFIERS=@im=ibus 
     mkfifo /tmp/xobpipe &
     tail -f /tmp/xobpipe | xob -c ~/.cache/wal/xob.cfg &
-    pkill picom; picom --experimental-backends --respect-prop-shadow --detect-rounded-corners &
+    pkill picom; picom --respect-prop-shadow --detect-rounded-corners &
     redshift &
     polybar -r default &
     polybar -r monitor-normal &
@@ -66,7 +66,7 @@ if [[ ! $(ps -A | grep redshift) ]]; then
     playerctld daemon &
     mpd &
     eww daemon &
-    paletted &
+    #paletted &
     #betterlockscreen -u ~/.bkg &
     #g815-led -p ~/.cache/wal/g815profile1 &
     #python ~/prog/randomreminder.py &
