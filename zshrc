@@ -216,7 +216,7 @@ alias inspec="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bin
 alias bkgset="~/prog/bkgset.sh"
 alias delet="yay -Rns"
 alias absolutely="yes | sudo"
-syu() { sudo clear; cat ~/prog/bigarch | figlet -ctf term; yay -Pw && time yay -Syu $@; sudo pacdiff; paccache -r; ncdu ~/.cache/yay }
+syu() { sudo clear; cat ~/.config/bigarch | figlet -ctf term; yay -Pw && time yay -Syu $@; sudo pacdiff; paccache -r; ncdu ~/.cache/yay }
 fix() { pacman -Qoq $1 | yay -S --rebuild - }
 twitchFarm() { while true; do xdotool mousemove 1072 1002 && xdotool click 1; sleep 900; done; }
 muzak() { cat /dev/urandom | hexdump -v -e '/1 "%u\n"' | awk '{ split("4,5,7,11",a,","); for (i = 0; i < 1; i+= 0.0001) printf("%08X\n", 100*sin(1046*exp((a[$1 % 8]/12)*log(2))*i)) }' | xxd -r -p | pacat --channels=2 --format=s32le --rate=24000; }

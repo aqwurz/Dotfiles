@@ -13,6 +13,7 @@ Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'lervag/vimtex'
+Plug 'dylanaraps/wal.vim'
 call plug#end()
 
 " vimtex
