@@ -7,7 +7,7 @@ let &packpath = &runtimepath
 source ~/.config/vimrc
 
 call plug#begin()
-Plug 'nvim-neorg/neorg', {'tag': '0.0.12'} | Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 Plug 'SirVer/ultisnips'
@@ -54,8 +54,8 @@ require('neorg').setup {
         ["core.norg.dirman"] = {
             config = {
                 workspaces = {
-                    bujo = "~/personal/bujo",
-                    study = "~/export/uio"
+                    bujo = "/Media/argent import/personal/bujo",
+                    study = "/Media/argent import/export/uio"
                 }
             }
         },
