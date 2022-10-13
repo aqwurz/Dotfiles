@@ -36,6 +36,7 @@ bspc rule -a \* border=off
 #bspc rule -a Alacritty border=on
 bspc rule -a Scratchpad state=floating hidden=on #locked=on sticky=on 
 bspc rule -a Picture-in-Picture state=floating sticky=on
+bspc rule -a firefox:Toolkit:* state=floating sticky=on
 
 wal -Ren
 
