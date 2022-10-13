@@ -1,0 +1,6 @@
+### MPD ###
+mpd_music_dir = /Media/Music
+mpd_port = "6600"
+
+external_editor = /bin/vim
+#execute_on_song_change="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp_cover_art.sh"
