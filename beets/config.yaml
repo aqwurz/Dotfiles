@@ -1,0 +1,4 @@
+plugins: chroma fetchart embedart fromfilename lyrics
+
+lyrics:
+  sources: musixmatch genius 
