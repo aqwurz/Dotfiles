@@ -10,7 +10,6 @@ ibus/*
 libfm/*
 pcmanfm/*
 pupgui/*
-qt5ct/*
 qt6ct/*
 systemd/*
 mimeapps.list
