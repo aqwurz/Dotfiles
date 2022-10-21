@@ -15,3 +15,5 @@ systemd/*
 mimeapps.list
 dolphin-emu/*
 QtProject.conf
+Authy\ Desktop/*
+GIMP/*
