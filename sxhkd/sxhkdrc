@@ -191,7 +191,7 @@ super + n
 
 # select emoji from list
 mod3 + e
-    rofimoji -a clipboard
+    rofimoji
 
 # watch a youtube video
 super + y
@@ -203,11 +203,11 @@ super + shift + y
 
 # insert greek letters
 mod3 + g
-    rofimoji -a clipboard -f greek_and_coptic
+    rofimoji -f greek_and_coptic
 
 # insert kana
 mod3 + {_,shift + }j
-    rofimoji -a clipboard -f {hiragana,katakana}
+    rofimoji -f {hiragana,katakana}
 
 # autoclickers (might be unstable)
 super + {_,shift + ,alt + }k
