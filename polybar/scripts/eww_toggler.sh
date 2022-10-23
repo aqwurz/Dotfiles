@@ -4,5 +4,5 @@ if [[ $(cat ~/.eww_tasks_open) == "0" ]]; then
 else
     eww close tasks$1
     echo "0" > .eww_tasks_open
-    ~/prog/calsync.sh
+    ~/.config/eww/scripts/calsync.sh
 fi

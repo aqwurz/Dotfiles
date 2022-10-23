@@ -1,0 +1,17 @@
+[general]
+status_path = "~/.vdirsyncer/status"
+
+[pair UiO]
+a = "UiO_local"
+b = "UiO_remote"
+collections = null
+metadata = ["displayname", "color"]
+
+[storage UiO_local]
+type = "filesystem"
+path = "~/.config/vdir/calendars/UiO/"
+fileext = ".ics"
+
+[storage UiO_remote]
+type = "http"
+url = "https://minestudier.uio.no/nb/calendar/vrqukod5/schedule.ics"

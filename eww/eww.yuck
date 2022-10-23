@@ -67,7 +67,7 @@
         (music)))
 
 (defwindow tasks1
-    :monitor 1
+    :monitor 0
     :class "tasks"
     :geometry (geometry :x "0%"
                         :y "40px"
@@ -80,5 +80,5 @@
         :space-evenly false 
         :class "mainbox" 
         (cal) 
-        (schedule :H 743) 
+        (schedule :H 987) 
         (music)))
