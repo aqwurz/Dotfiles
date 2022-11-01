@@ -173,6 +173,8 @@ alias .....=u4
 alias yaay="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro yay -S"
 alias inspec="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 alias delet="yay -Rns"
+# mlagents is pain
+alias mlagents-learn="python ~/.local/lib/python3.10/site-packages/mlagents/trainers/learn.py"
 
 ### Functions
 # Update script
