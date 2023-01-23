@@ -279,15 +279,15 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#f9f9fa" # sed bg
-    foreground = "#ADAFB2" # sed fg low
+    background = "#fbfbfb" # sed bg
+    foreground = "#BBBEC3" # sed fg low
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#f9f9fa" # sed bg
-    foreground = "#0D0E0C" # sed fg normal
+    background = "#fbfbfb" # sed bg
+    foreground = "#0D1506" # sed fg normal
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon

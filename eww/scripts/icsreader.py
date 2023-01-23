@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
 from sys import argv
 
@@ -57,9 +57,10 @@ def read_ics(folder, name="personal"):
                     elif 'DESCRIPTION' in l:
                         event['description'] = l[12:-1]
                         i+=1
-                        while f[i][0:3] != 'UID':
+                        while f[i][0:3] not in ["UID", "SUM", "LOC", "TIT", "URL"]:
                             event['description'] += f[i][1:-1]
                             i+=1
+                        i-=1
                         event['description'] = re.sub(r'\\n',r'\n',event['description'])
                         event['description'] = re.sub(r'\\,',r',',event['description'])
                     i+=1
@@ -130,7 +131,7 @@ def read_evt(folder, name="personal"):
                 D = datetime.strptime(event['end'], "%Y-%m-%d %H:%M") if not event['all-day'] else "nope"
                 dd = d 
                 shift = 0
-                while dd.date() < datetime.strptime(repeat_until, "%Y-%m-%d").date():
+                while dd.date() < datetime.strptime(repeat_until, "%Y-%m-%d").date() and dd.date().year <= datetime.today().year + 1:
                     e2 = event.copy()
                     if repeat_freq in range(30):
                         shift += repeat_freq
@@ -331,6 +332,7 @@ def main(evts, date=""):
         today = now.date()
         tomorrow = datetime.utcfromtimestamp(int(today.strftime("%s")) + 86400 * 2).date()
         seven_days_from_now = datetime.utcfromtimestamp(int(today.strftime("%s")) + 86400 * 7).date()
+        events_current = []
         events_today = []
         events_tomorrow = []
         events_next_seven_days = []
@@ -338,8 +340,15 @@ def main(evts, date=""):
         for event in events:
             start = datetime.strptime(event['start'], "%Y-%m-%d %H:%M")
             start_date = start.date()
-            if start > now or (event['all-day'] and start_date == today):
-                if start_date <= today:
+            if not event['all-day']:
+                end = datetime.strptime(event['end'], "%Y-%m-%d %H:%M")
+            else:
+                end = start + timedelta(days=1)
+            end_date = end.date()
+            if end > now or (event['all-day'] and start_date == today):
+                if start < now:
+                    events_current.append(event)
+                elif start_date == today:
                     events_today.append(event)
                 elif start_date <= tomorrow:
                     events_tomorrow.append(event)
@@ -347,6 +356,8 @@ def main(evts, date=""):
                     events_next_seven_days.append(event)
                 else:
                     events_later.append(event)
+        if len(events_current) > 0:
+            text += header.format("Now") + dict_to_yuck(events_current) 
         if len(events_today) > 0:
             text += header.format("Today") + dict_to_yuck(events_today) 
         if len(events_tomorrow) > 0:
@@ -367,10 +378,12 @@ if __name__ == "__main__":
               read_ics('/home/antoine/.config/vdir/calendars/UiO/', "uio") \
             + read_evt('/home/antoine/.calendar/work/', "work") \
             + read_evt('/home/antoine/.calendar/uio/', "uiocustom") \
+            + read_ics('/home/antoine/.calendar/uio/', "uiocustom") \
+            + read_ics('/home/antoine/.calendar/work/', "work") \
             + read_evt('/home/antoine/.calendar/dnd/', "dnd") \
             + read_evt('/home/antoine/.calendar/personal', "personal") \
+            + read_evt('/home/antoine/.calendar/jojo/', "jojo") \
             + boring_calendar()
-            #+ read_evt('/home/antoine/.calendar/jojo/', "jojo") \
 
     """
     with open('/home/antoine/.config/eww/vars.yuck', 'w') as f:
