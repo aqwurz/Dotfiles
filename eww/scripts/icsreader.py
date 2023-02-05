@@ -144,9 +144,9 @@ def read_evt(folder, name="personal"):
                         shift += 365 if (dd.year % 100 == 0 and dd.year % 400 != 0) \
                                      or (dd.year % 4 != 0) \
                                      else 366
-                    e2['start'] = datetime.utcfromtimestamp(int(d.strftime("%s")) + 86400 * shift + 7200) \
+                    e2['start'] = datetime.utcfromtimestamp(int(d.strftime("%s")) + 86400 * shift + 3600) \
                         .astimezone(timezone('Europe/Berlin')).strftime("%Y-%m-%d %H:%M")
-                    e2['end'] = datetime.utcfromtimestamp(int(D.strftime("%s")) + 86400 * shift + 7200) \
+                    e2['end'] = datetime.utcfromtimestamp(int(D.strftime("%s")) + 86400 * shift + 3600) \
                         .astimezone(timezone('Europe/Berlin')).strftime("%Y-%m-%d %H:%M") if D != "nope" else "N/A"
                     #e2['variable'] = name+str(len(events))
                     dd = datetime.strptime(e2['start'], "%Y-%m-%d %H:%M")
@@ -383,6 +383,7 @@ if __name__ == "__main__":
             + read_evt('/home/antoine/.calendar/dnd/', "dnd") \
             + read_evt('/home/antoine/.calendar/personal', "personal") \
             + read_evt('/home/antoine/.calendar/jojo/', "jojo") \
+            + read_evt('/home/antoine/.calendar/lan', "lan") \
             + boring_calendar()
 
     """
