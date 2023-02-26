@@ -79,3 +79,6 @@
   :init (setq ewal-use-built-in-always-p nil
               ewal-use-built-in-on-failure-p t
               ewal-built-in-palette "sexy-material"))
+
+(setq +latex-viewers '(zathura))
+;;(require ‘latex-preview-pane) (latex-preview-pane-enable)
