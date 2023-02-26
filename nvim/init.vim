@@ -7,8 +7,8 @@ let &packpath = &runtimepath
 source ~/.config/vimrc
 
 call plug#begin()
-Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim' 
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
