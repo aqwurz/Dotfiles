@@ -44,7 +44,6 @@ wal -Ren
 
 #if [[ $(cat ~/.bspwm_inplace) == 0 ]]; then
 if [[ ! $(ps -A | grep redshift) ]]; then
-    setxkbmap -layout 'no,ru,us' -option 'grp:shifts_toggle' -option compose:rctrl-altgr &
     ibus-daemon -drxR &
     ibus engine xkb:no::nor &
     export QT_QPA_PLATFORMTHEME=qt5ct 
@@ -66,6 +65,7 @@ if [[ ! $(ps -A | grep redshift) ]]; then
     ~/.config/bspwm/scripts/appear.sh &
     ~/.config/bkgset.sh same ~/.bkg &
     pcmanfm -d &
+    setxkbmap -layout 'no,ru,us' -option 'grp:shifts_toggle' -option compose:rctrl-altgr &
     xmodmap ~/.Xmodmap &
     thunderbird --headless &
     playerctld daemon &

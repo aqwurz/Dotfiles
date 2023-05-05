@@ -51,7 +51,7 @@ lua << EOF
 require('neorg').setup {
     load = {
         ["core.defaults"] = {},
-        ["core.norg.dirman"] = {
+        ["core.dirman"] = {
             config = {
                 workspaces = {
                     bujo = "/Media/argent import/personal/bujo",
@@ -59,11 +59,11 @@ require('neorg').setup {
                 }
             }
         },
-        ["core.norg.concealer"] = {},
+        ["core.concealer"] = {},
         -- ["core.norg.completion"] = {},
-        ["core.norg.qol.toc"] = {},
+        ["core.qol.toc"] = {},
         ["core.export"] = {},
-        ["core.norg.journal"] = {
+        ["core.journal"] = {
             config  = {
                 workspace = "bujo",
                 journal_folder = "norg",
