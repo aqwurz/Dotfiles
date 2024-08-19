@@ -1,0 +1,583 @@
+### sway config written "from scratch" by aqwurz (u/AntazarOfQwurz)
+### (based on the default sway config and anything that is attributed)
+### Do whatever you want with it, but I encourage you to attribute whatever you
+### have copied to the "original" author, like I have tried to do!
+###  
+### This uses the Hyper key as a modifier as well as the Super (Win) key. Add 
+### this to your ~/.Xmodmap to use Caps Lock as a Hyper key, like I do:
+###
+###	clear lock
+###	remove mod4 = Hyper_L ! fixes an issue where the Hyper key behaves like a 
+###                       ! Super key
+###	add mod3 = Hyper_L
+###
+
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+set $sup Mod4
+set $hyp Mod3
+
+# just to be sure
+set $mod Mod4
+
+# just wayland things
+xwayland enable
+input "1133:49983:Logitech_G815_RGB_MECHANICAL_GAMING_KEYBOARD" {
+    xkb_layout "caps_to_hyper",ru,us
+    xkb_options grp:shifts_toggle,compose:rctrl-altgr
+}
+output DP-1 {
+    mode 3440x1440@180Hz
+    adaptive_sync on
+}
+
+# swaylock-effects command
+#set $i3l swaylock -c 00000000 -B 10 --color 00000080 --noinput-text "stahp" --greeter-text "" --verif-text "hmm" --wrong-text "no" --greeter-color FFFFFFFF --verif-color FFFFFFFF --wrong-color FFFFFFFF --time-str "%H:%M:%S" --date-str "%Y-%m-%d" --time-color FFFFFFFF --date-color FFFFFFFF --ring-color FFFFFF00 --inside-color 00000080 --ringver-color 808080FF --insidever-color 20202080 --ringwrong-color FF0000FF --insidewrong-color 20000080 --keyhl-color 00FF00FF --bshl-color 008000FF --line-color 00000000 --separator-color 00000000 --ignore-empty-password --indicator --pass-power-keys --pass-volume-keys --pass-media-keys --pass-screen-keys --clock --radius 90 --ring-width 3
+set $i3l swaylock -i ~/.bkg -s fit -l -e --indicator --inside-color 00000080 --inside-ver-color 20202080 --inside-wrong-color 20000080 --ring-color FFFFFF00 --ring-ver-color 808080FF --ring-wrong-color FF0000FF --key-hl-color 00FF00FF --bs-hl-color 008000FF --line-color 00000000 --separator-color 00000000 --clock --timestr "%H:%M:%S" --datestr "%Y-%m-%d" --grace 5 --text-ver "hmm" --text-wrong "no"
+
+###############
+# STYLE BLOCK #
+###############
+
+# swayfx-specific options
+
+#blur        disable
+#blur_xray   disable
+#blur_passes 2
+#blur_radius 9
+
+#shadows             disable
+#shadow_blur_radius  15
+#shadow_color        #00000080
+
+#scratchpad_minimize disable
+
+# wal colour setting (in case I want titlebars)
+
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want sway to use
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color sway will use if
+# it fails to get colors from Xresources.
+#set_from_resource $fg swaywm.color7 #f0f0f0
+#set_from_resource $bg swaywm.color2 #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+#client.focused          $bg     $bg     $fg  $bg       $bg
+#client.focused_inactive $bg     $bg     $fg  $bg       $bg
+#client.unfocused        $bg     $bg     $fg  $bg       $bg
+#client.urgent           $bg     $bg     $fg  $bg       $bg
+#client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+#client.background       $bg
+
+# font for window titles
+font pango:monospace 8
+
+# size of gaps
+gaps inner 20
+gaps outer 0
+gaps top 0
+gaps bottom 20
+gaps left 20
+gaps right 20
+smart_borders no_gaps
+#smart_gaps on
+
+# size of rounded corners
+#border_radius 0
+
+# remove borders
+#new_window none
+default_border pixel 0
+hide_edge_borders --i3 both
+for_window [class="^.*"] border pixel 0
+
+# makes nmtui into a "system tray app"
+for_window [ title="nmtui"  ] floating enable
+for_window [ title="nmtui"  ] move right 582
+for_window [ title="nmtui"  ] move up 276
+for_window [ title="nmtui"  ] resize shrink width 126 px or 126 ppt
+
+# same for matplotlib figures
+for_window [ title="^Figure*"  ] floating enable
+
+# in-browser bank authentication too
+for_window [ title="^BankID*" ] floating enable
+
+# x-win make floating
+for_window [ class="X-Win32 PC X Server" ] floating enable
+
+# attempt for steam friend list
+for_window [ title="Friends List" ] floating enable
+
+# attempt for zoom notifications
+for_window [ title="zoom" ] floating enable
+
+###############
+# START BLOCK #
+###############
+
+exec swww-daemon &
+exec_always export GTK_IM_MODULE=ibus
+exec_always export QT_IM_MODULE=ibus
+exec_always export XMODIFIERS=@im=ibus
+exec ibus-daemon -drxR &
+exec ibus engine xkb:no::nor &
+exec_always export QT_QPA_PLATFORMTHEME=qt5ct
+exec_always export XDG_RUNTIME_DIR=/run/user/$(id -u)
+exec_always export XDG_SCREENSHOTS_DIR=~/screenshots
+exec mkfifo /tmp/xobpipe
+exec tail -f /tmp/xobpipe | wob -c ~/.cache/wal/xob.cfg
+exec gammastep &
+#exec polybar -r default &
+exec ~/.config/sway/scripts/appear.sh
+exec ~/.config/sway/scripts/scratchlaunch.sh
+exec ~/.config/bkgset.sh same ~/.bkg
+exec pcmanfm -d &
+exec playerctld daemon &
+exec mpd &
+exec eww daemon &
+exec_always mpv ~/.config/sway/scripts/startup.mp3
+
+###############
+# MISC. BLOCK #
+###############
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 swaystatus
+
+#enable switching from one workspace to another using the same command
+#eg.: W1 -> $mod+2 -> W2 -> $mod+2 -> W1
+workspace_auto_back_and_forth yes
+
+
+#################
+#################
+## BINDS BLOCK ##
+#################
+#################
+
+###################
+# SYSTEM CONTROLS #
+###################
+
+## Miscellaneous // Toggle touchpad // fn f6
+bindsym XF86TouchpadToggle exec --no-startup-id ~/.config/sway/scripts/touchpadtoggle.sh
+
+# music controls
+## System // Toggle music // play-pause
+bindsym XF86AudioPlay exec mpc toggle
+## System // Play previous song // skip-back
+bindsym XF86AudioPrev exec mpc prev
+## System // Play next song // skip-fwd
+bindsym XF86AudioNext exec mpc next
+
+# restart sway inplace (preserves your layout/session, can be used to upgrade sway)
+## System // Refresh sway //  r
+bindsym $sup+r restart
+
+# reload the configuration file
+## System // Reload sway config //  alt r
+bindsym $sup+Mod1+r reload
+
+# powermenu
+## System // Open power menu // caps r
+bindsym $hyp+r exec ~/.config/rofi/scripts/powermenu.sh
+
+# wal
+## Appearance // Reload background-based theme //  b
+bindsym $sup+b exec wal -R
+
+# wal requiem
+#bindsym $hyp+b exec ~/.config/sway/scripts/bufabkg.sh
+## Appearance // Switch to light mode // caps b
+bindsym $hyp+b exec ~/.config/bkgset.sh light ~/.bkg
+## Appearance // Switch to dark mode // caps shift b
+bindsym $hyp+Shift+b exec ~/.config/bkgset.sh dark ~/.bkg
+
+# locks
+## System // Lock sway with swaylock //  x
+bindsym $sup+x exec $i3l
+## System // Lock sway with physlock //  shift x
+bindsym $sup+shift+x exec physlock -p "$(figlet -cf slant antoine | lolcat && echo "$(fortune -s | figlet -cf term)")"
+
+##################
+#  WS CONTROLS   #
+##################
+
+# meta_workspaces by mrconter1
+# https://github.com/mrconter1/i3_meta_workspaces
+
+# change to workspace
+## Workspaces // Change to workspace X1 (or previous workspace) //  1
+bindsym $sup+1 exec python ~/.config/sway/scripts/meta_workspaces.py -w 1
+## Workspaces // Change to workspace X2 (or previous workspace) //  2
+bindsym $sup+2 exec python ~/.config/sway/scripts/meta_workspaces.py -w 2
+## Workspaces // Change to workspace X3 (or previous workspace) //  3
+bindsym $sup+3 exec python ~/.config/sway/scripts/meta_workspaces.py -w 3
+## Workspaces // Change to workspace X4 (or previous workspace) //  4
+bindsym $sup+4 exec python ~/.config/sway/scripts/meta_workspaces.py -w 4
+## Workspaces // Change to workspace X5 (or previous workspace) //  5
+bindsym $sup+5 exec python ~/.config/sway/scripts/meta_workspaces.py -w 5
+## Workspaces // Change to workspace X6 (or previous workspace) //  6
+bindsym $sup+6 exec python ~/.config/sway/scripts/meta_workspaces.py -w 6
+## Workspaces // Change to workspace X7 (or previous workspace) //  7
+bindsym $sup+7 exec python ~/.config/sway/scripts/meta_workspaces.py -w 7
+## Workspaces // Change to workspace X8 (or previous workspace) //  8
+bindsym $sup+8 exec python ~/.config/sway/scripts/meta_workspaces.py -w 8
+## Workspaces // Change to workspace X9 (or previous workspace) //  9
+bindsym $sup+9 exec python ~/.config/sway/scripts/meta_workspaces.py -w 9
+## Workspaces // Change to workspace X0 (or previous workspace) //  0
+bindsym $sup+0 exec python ~/.config/sway/scripts/meta_workspaces.py -w 0
+
+# move focused container to workspace
+## Workspaces // Move focused window to workspace X1 (or previous workspace) //  shift 1
+bindsym $sup+Shift+1 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 1
+## Workspaces // Move focused window to workspace X2 (or previous workspace) //  shift 2
+bindsym $sup+Shift+2 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 2
+## Workspaces // Move focused window to workspace X3 (or previous workspace) //  shift 3
+bindsym $sup+Shift+3 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 3
+## Workspaces // Move focused window to workspace X4 (or previous workspace) //  shift 4
+bindsym $sup+Shift+4 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 4
+## Workspaces // Move focused window to workspace X5 (or previous workspace) //  shift 5
+bindsym $sup+Shift+5 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 5
+## Workspaces // Move focused window to workspace X6 (or previous workspace) //  shift 6
+bindsym $sup+Shift+6 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 6
+## Workspaces // Move focused window to workspace X7 (or previous workspace) //  shift 7
+bindsym $sup+Shift+7 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 7
+## Workspaces // Move focused window to workspace X8 (or previous workspace) //  shift 8
+bindsym $sup+Shift+8 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 8
+## Workspaces // Move focused window to workspace X9 (or previous workspace) //  shift 9
+bindsym $sup+Shift+9 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 9
+## Workspaces // Move focused window to workspace X0 (or previous workspace) //  shift 0
+bindsym $sup+Shift+0 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 0
+
+# move focused container to workspace and change to that workspace
+## Workspaces // Move focused window to workspace X1 (or previous workspace) and change to same workspace //  alt 1
+bindsym $sup+Mod1+1 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 1 && python ~/.config/sway/scripts/meta_workspaces.py -w 1
+## Workspaces // Move focused window to workspace X2 (or previous workspace) and change to same workspace //  alt 2
+bindsym $sup+Mod1+2 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 2 && python ~/.config/sway/scripts/meta_workspaces.py -w 2
+## Workspaces // Move focused window to workspace X3 (or previous workspace) and change to same workspace //  alt 3
+bindsym $sup+Mod1+3 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 3 && python ~/.config/sway/scripts/meta_workspaces.py -w 3
+## Workspaces // Move focused window to workspace X4 (or previous workspace) and change to same workspace //  alt 4
+bindsym $sup+Mod1+4 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 4 && python ~/.config/sway/scripts/meta_workspaces.py -w 4
+## Workspaces // Move focused window to workspace X5 (or previous workspace) and change to same workspace //  alt 5
+bindsym $sup+Mod1+5 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 5 && python ~/.config/sway/scripts/meta_workspaces.py -w 5
+## Workspaces // Move focused window to workspace X6 (or previous workspace) and change to same workspace //  alt 6
+bindsym $sup+Mod1+6 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 6 && python ~/.config/sway/scripts/meta_workspaces.py -w 6
+## Workspaces // Move focused window to workspace X7 (or previous workspace) and change to same workspace //  alt 7
+bindsym $sup+Mod1+7 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 7 && python ~/.config/sway/scripts/meta_workspaces.py -w 7
+## Workspaces // Move focused window to workspace X8 (or previous workspace) and change to same workspace //  alt 8
+bindsym $sup+Mod1+8 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 8 && python ~/.config/sway/scripts/meta_workspaces.py -w 8
+## Workspaces // Move focused window to workspace X9 (or previous workspace) and change to same workspace //  alt 9
+bindsym $sup+Mod1+9 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 9 && python ~/.config/sway/scripts/meta_workspaces.py -w 9
+## Workspaces // Move focused window to workspace X0 (or previous workspace) and change to same workspace //  alt 0
+bindsym $sup+Mod1+0 exec python ~/.config/sway/scripts/meta_workspaces.py -mw 0 && python ~/.config/sway/scripts/meta_workspaces.py -w 0
+
+# change meta workspace
+## Workspaces // Change meta-workspace to 1X //  Ctrl 1
+bindsym $sup+Control+1 exec python ~/.config/sway/scripts/meta_workspaces.py -m 1
+## Workspaces // Change meta-workspace to 2X //  Ctrl 2
+bindsym $sup+Control+2 exec python ~/.config/sway/scripts/meta_workspaces.py -m 2
+## Workspaces // Change meta-workspace to 3X //  Ctrl 3
+bindsym $sup+Control+3 exec python ~/.config/sway/scripts/meta_workspaces.py -m 3
+## Workspaces // Change meta-workspace to 4X //  Ctrl 4
+bindsym $sup+Control+4 exec python ~/.config/sway/scripts/meta_workspaces.py -m 4
+## Workspaces // Change meta-workspace to 5X //  Ctrl 5
+bindsym $sup+Control+5 exec python ~/.config/sway/scripts/meta_workspaces.py -m 5
+## Workspaces // Change meta-workspace to 6X //  Ctrl 6
+bindsym $sup+Control+6 exec python ~/.config/sway/scripts/meta_workspaces.py -m 6
+## Workspaces // Change meta-workspace to 7X //  Ctrl 7
+bindsym $sup+Control+7 exec python ~/.config/sway/scripts/meta_workspaces.py -m 7
+## Workspaces // Change meta-workspace to 8X //  Ctrl 8
+bindsym $sup+Control+8 exec python ~/.config/sway/scripts/meta_workspaces.py -m 8
+## Workspaces // Change meta-workspace to 9X //  Ctrl 9
+bindsym $sup+Control+9 exec python ~/.config/sway/scripts/meta_workspaces.py -m 9
+## Workspaces // Change meta-workspace to 0X //  Ctrl 0
+bindsym $sup+Control+0 exec python ~/.config/sway/scripts/meta_workspaces.py -m 0
+
+# next/previous workspace
+## Workspaces // Change to previous workspace //  w
+bindsym $sup+w workspace back_and_forth
+## Workspaces // Change to previous workspace //  w
+bindsym $sup+Shift+w workspace back_and_forth
+## Workspaces // Move focused window to previous workspace and change to same workspace //  alt w
+bindsym $sup+Mod1+w exec swaymsg "move container to workspace back_and_forth" && swaymsg "workspace back_and_forth"
+
+###################
+# WINDOW CONTROLS #
+###################
+
+# Use Mouse+$sup to drag floating windows to their wanted position
+floating_modifier $sup
+
+# kill focused window
+## Windows // Close focused window // caps q
+bindsym $hyp+q kill
+
+# window selector
+## Windows // Select window from list // caps w
+bindsym $hyp+w exec ~/.config/rofi/scripts/multiscript.sh -w
+
+# scratchpad
+## Windows // Move focused window to scratchpad //  shift t
+bindsym $sup+Shift+t move scratchpad
+## Windows // Toggle scratchpad visibility, and cycle scratchpad windows //  t
+bindsym $sup+t scratchpad show
+
+# swap two containers by u/vikarjramun
+mode "swap" {
+    # change workspace
+    bindsym $sup+1 exec python ~/.config/sway/scripts/meta_workspaces.py -w 1
+    bindsym $sup+2 exec python ~/.config/sway/scripts/meta_workspaces.py -w 2
+    bindsym $sup+3 exec python ~/.config/sway/scripts/meta_workspaces.py -w 3
+    bindsym $sup+4 exec python ~/.config/sway/scripts/meta_workspaces.py -w 4
+    bindsym $sup+5 exec python ~/.config/sway/scripts/meta_workspaces.py -w 5
+    bindsym $sup+6 exec python ~/.config/sway/scripts/meta_workspaces.py -w 6
+    bindsym $sup+7 exec python ~/.config/sway/scripts/meta_workspaces.py -w 7
+    bindsym $sup+8 exec python ~/.config/sway/scripts/meta_workspaces.py -w 8
+    bindsym $sup+9 exec python ~/.config/sway/scripts/meta_workspaces.py -w 9
+    bindsym $sup+0 exec python ~/.config/sway/scripts/meta_workspaces.py -w 0
+
+    # change focus
+    bindsym $sup+Left focus left
+    bindsym $sup+Down focus down
+    bindsym $sup+Up focus up
+    bindsym $sup+Right focus right
+
+    # change focus (without mod)
+    bindsym Left focus left
+    bindsym Down focus down
+    bindsym Up focus up
+    bindsym Right focus right
+
+    bindsym Return swap container with mark "swapee"; unmark "swapee"; mode "default";
+    bindsym Escape unmark "swapee"; mode "default";
+}
+## Windows // Swap two windows (enter to swap, esc to cancel) // caps s
+bindsym $hyp+s mark --add "swapee"; mode "swap"
+
+# focus the parent container
+## Windows // Change focus to parent container //  a
+bindsym $sup+a focus parent
+
+# focus the child container
+## Windows // Change focus to child container //  shift a
+bindsym $sup+Shift+a focus child
+
+# change container layout (stacked, tabbed)
+## Windows // Change container layout to tabbed //  s
+bindsym $sup+s layout tabbed
+## Windows // Change container layout to stacked //  shift s
+bindsym $sup+Shift+s layout stacking
+## Windows // Change container layout to default //  alt s
+bindsym $sup+Mod1+s layout default
+
+# split horisontally
+## Windows // Split container horisontally //  h
+bindsym $sup+h split v
+
+# split vertically
+## Windows // Split container vertically //  v
+bindsym $sup+v split h
+
+# toggle split
+## Windows // Toggle arrangement of containers //  alt h
+bindsym $sup+Mod1+h layout toggle split
+## Windows // Toggle arrangement of containers //  alt v
+bindsym $sup+Mod1+v layout toggle split
+
+# change focus between tiling / floating windows
+## Windows // Change focus between tiling and floating windows //  ctrl space
+bindsym $sup+Control+space focus mode_toggle
+
+# toggle tiling / floating
+## Windows // Toggle window between tiling and grid alignment //  space
+bindsym $sup+space floating toggle
+
+# enter fullscreen mode for the focused container
+## Windows // Toggle fullscreen //  f
+bindsym $sup+f fullscreen toggle
+
+# change focus
+## Windows // Change focus to the left (wraps around) //  left
+bindsym $sup+Left focus left
+## Windows // Change focus downward (wraps around) //  down
+bindsym $sup+Down focus down
+## Windows // Change focus upward (wraps around) //  up
+bindsym $sup+Up focus up
+## Windows // Change focus to the right (wraps around) //  right
+bindsym $sup+Right focus right
+
+# move focused window
+## Windows // Move focused window to the left //  shift left
+bindsym $sup+Shift+Left move left
+## Windows // Move focused window downward //  shift down
+bindsym $sup+Shift+Down move down
+## Windows // Move focused window upward //  shift up
+bindsym $sup+Shift+Up move up
+## Windows // Move focused window to the right //  shift right
+bindsym $sup+Shift+Right move right
+
+# resize 2 hyper boogaloo
+## Windows // Decrease width of focused window // caps left
+bindsym $hyp+Left resize shrink width 1 px or 1 ppt
+## Windows // Increase height of focused window // caps down
+bindsym $hyp+Down resize grow height 1 px or 1 ppt
+## Windows // Decrease height of focused window // caps up
+bindsym $hyp+Up resize shrink height 1 px or 1 ppt
+## Windows // Increase width of focused window // caps right
+bindsym $hyp+Right resize grow width 1 px or 1 ppt
+
+## Windows // Decrease width of focused window quickly // caps shift left
+bindsym $hyp+Shift+Left resize shrink width 10 px or 10 ppt
+## Windows // Increase height of focused window quickly // caps shift down
+bindsym $hyp+Shift+Down resize grow height 10 px or 10 ppt
+## Windows // Decrease height of focused window quickly // caps shift up
+bindsym $hyp+Shift+Up resize shrink height 10 px or 10 ppt
+## Windows // Increase width of focused window quickly // caps shift right
+bindsym $hyp+Shift+Right resize grow width 10 px or 10 ppt
+
+## Windows // Narrow gaps between windows // caps alt down
+bindsym $hyp+Mod1+Down gaps inner current minus 3
+## Windows // Widen gaps between windows // caps alt up
+bindsym $hyp+Mod1+Up gaps inner current plus 3
+## Windows // Narrow gaps around windows // caps alt left
+bindsym $hyp+Mod1+Left gaps outer current minus 3
+## Windows // Widen gaps around windows // caps alt right
+bindsym $hyp+Mod1+Right gaps outer current plus 3
+
+## Windows // Narrow gaps between windows quickly // caps alt shift down
+bindsym $hyp+Mod1+Shift+Down gaps inner current minus 12
+## Windows // Widen gaps between windows quickly // caps alt shift up
+bindsym $hyp+Mod1+Shift+Up gaps inner current plus 12
+## Windows // Narrow gaps around windows quickly // caps alt shift left
+bindsym $hyp+Mod1+Shift+Left gaps outer current minus 12
+## Windows // Widen gaps around windows quickly // caps alt shift right
+bindsym $hyp+Mod1+Shift+Right gaps outer current plus 12
+
+##################
+# MEDIA CONTROLS #
+##################
+
+# Use pactl to adjust volume in PulseAudio.
+## Media controls // Increase volume // fn f3
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/sway/scripts/volumechange.sh up
+## Media controls // Decrease volume // fn f2
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/sway/scripts/volumechange.sh down
+## Media controls // Toggle speaker mute // fn f1
+bindsym XF86AudioMute exec --no-startup-id ~/.config/sway/scripts/volumechange.sh mute
+## Media controls // Toggle microphone mute // fn unknown
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# master mic mute
+## Media controls // Toggle microphone // caps Tab
+bindsym $hyp+Tab exec ~/.config/sway/scripts/mictoggle.sh
+
+
+# Use brightnessctl to adjust brightness.
+## Media controls // Decrease laptop display brightness // fn f4
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+## Media controls // Increase laptop display brightness // fn f5
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
+## Miscellaneous // Take screenshot // prtsc
+bindsym Print exec /usr/share/sway-contrib/grimshot savecopy screen
+## Miscellaneous // Take snipped screenshot // shift prtsc
+bindsym Shift+Print exec /usr/share/sway-contrib/grimshot savecopy anything
+
+# rotate external screen
+# monitor-flip by me
+## Media controls // Flip external display to -90° rotation // caps v
+bindsym $hyp+v exec ~/.config/sway/scripts/monitor-flip.sh left
+## Media controls // Flip external display to 90° rotation // caps shift v
+bindsym $hyp+Shift+v exec ~/.config/sway/scripts/monitor-flip.sh right
+## Media controls // Flip external display to 0° rotation // caps alt v
+bindsym $hyp+Mod1+v exec ~/.config/sway/scripts/monitor-flip.sh normal
+
+################
+# PROGRAM KEYS #
+################
+
+# program launcher
+## Programs // Launch program from list //  d
+bindsym $sup+d exec ~/.config/rofi/scripts/multiscript.sh -r
+
+# launch Evolution
+bindsym $sup+e exec evolution
+
+# launch a new instance of firefox
+## Programs // Launch Firefox // caps f
+bindsym $hyp+f exec firefox --new-instance
+
+# start a terminal
+## Programs // Open terminal //  t
+bindsym $sup+Return exec WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty
+## Programs // Open terminal // caps t
+bindsym $hyp+Return exec WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty
+
+# control the music
+## Miscellaneous // Open music player //  n
+bindsym $sup+n exec WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty -e ~/.config/sway/scripts/ncmpcpp_launch.sh
+
+#################
+# MISCELLANEOUS #
+#################
+
+# emoji selector
+## Miscellaneous // Insert emoji from list // caps e
+bindsym $hyp+e exec rofimoji -a clipboard
+
+# watch a youtube video with ytfzf - enter keyword, then select video
+## Miscellaneous // Watch a YouTube video //  y
+bindsym $sup+y exec ytfzf -D
+## Miscellaneous // Watch a YouTube video (I'm feeling lucky) //  shift y
+bindsym $sup+Shift+y exec ytfzf -aD
+
+# insert greek letters - yes, I know greek kb layouts exist, but I don't type greek letters on a regular basis
+## Miscellaneous // Insert greek letter from list // caps g
+bindsym $hyp+g exec rofimoji -a clipboard -f greek_and_coptic
+
+# rotate external screen
+# monitor-flip by me
+## Media controls // Flip external screen to 0° rotation // caps h 
+bindsym $hyp+h exec ~/.config/sway/scripts/monitor-flip.sh normal
+
+# insert kana - yes, I know japanese kb layouts exist, but I don't type kana on a regular basis
+## Miscellaneous // Insert hiragana from list // caps j
+bindsym $hyp+j exec rofimoji -a clipboard -f hiragana 
+## Miscellaneous // Insert katakana from list // caps shift j
+bindsym $hyp+Shift+j exec rofimoji -a clipboard -f katakana 
+
+# autoclicker
+## Media controls // Hold down right mouse button (UNSTABLE) //  k
+bindsym $sup+k exec xdotool mousedown 3 && libinput-gestures-setup restart
+## Media controls // Hold down left mouse button (UNSTABLE) //  shift k
+bindsym $sup+Shift+k exec xdotool mousedown 1 && libinput-gestures-setup restart
+## Media controls // Hold down middle mouse button (UNSTABLE) //  alt k
+bindsym $sup+Mod1+k exec xdotool mousedown 2 && libinput-gestures-setup restart
+
+# keybind list by quantumbyte
+# https://www.reddit.com/r/i3wm/comments/e1x9n6/keybindings_menu_not_dmenurofi/f8strmr/
+## Miscellaneous // List raw sway keybindings //  c
+bindsym $sup+c exec cat ~/.config/sway/config | grep 'bindsym' | grep -v '^\s*#' | sed 's/bindsym / /' | rofi -dmenu -theme "~/.config/rofi/themes/appsmenu.rasi"
+# another keybind list by Mathieu Clabaut
+# https://gitlab.com/matclab/rofi-i3-shortcut-help
+## Miscellaneous // List sway keybindings //  alt c
+bindsym $sup+Mod1+c exec rofi -modi shortcut:/home/antoine/.config/sway/scripts/shortcut.sh -show shortcut
+
+# find the cursor
+## Miscellaneous // Locate cursor // caps c
+bindsym $hyp+c exec xcursorlocate
+
+###############
+# TODOS BLOCK #
+###############
+
+# adjust gamma of secondary display
+# TODO find out how it's done in wayland
+## Media controls // Increase gamma of display //  g
+bindsym $sup+g exec xrandr --output DP-0 --gamma 1.2
+## Media controls // Reset gamma of display //  shift g
+bindsym $sup+Shift+g exec xrandr --output DP-0 --gamma 1

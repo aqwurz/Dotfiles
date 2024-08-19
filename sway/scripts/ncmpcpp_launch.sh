@@ -1,0 +1,2 @@
+wal -Ren
+ncmpcpp
