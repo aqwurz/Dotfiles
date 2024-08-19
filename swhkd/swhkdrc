@@ -2,16 +2,13 @@
 # SYSTEM CONTROLS #
 ###################
 
-XF86TouchpadToggle
-    ~/.config/bspwm/scripts/touchpadtoggle.sh
-
-XF86AudioPlay
+xf86audioplay
     mpc toggle
 
-XF86AudioPrev
+xf86audioprev
     mpc prev
 
-XF86AudioNext
+xf86audionext
     mpc next
 
 # restart bspwm in-place
@@ -20,10 +17,10 @@ super + r
 
 # reload sxhkd config
 super + shift + r
-    pkill -USR1 -x sxhkd && dunstify "SXHKD" "config reloaded" && sxhkd &
+    pkill -HUP swhkd && dunstify "SWHKD" "config reloaded" &&
 
 # powermenu
-mod3 + r
+super + alt + r
     ~/.config/rofi/scripts/powermenu.sh
 
 # enable external display, and disable after disconnecting
@@ -68,11 +65,11 @@ super + {_,shift +}w
 ###################
 
 # kill focused window
-mod3 + q
+super + q
     bspc node -c && bspc desktop focused -l tiled
 
 # select window from list
-mod3 + w
+super + shift + w
     ~/.config/rofi/scripts/multiscript.sh -w
 
 # toggle scratchpad visibility
@@ -84,11 +81,11 @@ super + s
     bspc node -s biggest.window
 
 # rotate window layout clockwise
-mod3 + s
+super + shift + s
     bspc node any -R 90
 
 # balance window layout
-mod3 + a
+super + shift + a
     bspc node @/ --balance
 
 # toggle monocle mode
@@ -122,15 +119,15 @@ super + shift + {Up,Down,Left,Right}
     ~/.config/bspwm/scripts/bspwm_smart_move.sh {north,south,west,east}
 
 # expand window
-mod3 + {Up,Down,Left,Right}
+super + alt + {Up,Down,Left,Right}
     bspc node -z {top 0 -10,bottom 0 10,left -10 0,right 10 0}
 
 # contract window doesn't work?
-mod3 + shift + {Up,Down,Left,Right}
+super + alt + shift + {Up,Down,Left,Right}
     bspc node -z {bottom 0 -10,top 0 10,right -10 0,left 10 0}
 
 # move floating window
-super + alt + {Up,Down,Left,Right}
+super + ctrl + {Up,Down,Left,Right}
     bspc node -v {0 -10,0 10,-10 0,10 0}
 
 ##################
@@ -142,7 +139,7 @@ XF86Audio{RaiseVolume,LowerVolume,Mute}
     ~/.config/bspwm/scripts/volumechange.sh {up,down,mute}
 
 # toggle microphone
-mod3 + Tab
+super + Tab
     ~/.config/bspwm/scripts/mictoggle.sh
 
 # adjust camera zoom
@@ -173,32 +170,32 @@ super + {_,alt + ,shift + }v
 # PROGRAM KEYS #
 ################
 
-# open thunderbird
-mod3 + t
-    ~/.config/bspwm/scripts/thunderbird.sh
+# open evolution
+super + e
+    evolution
 
 # launch a program
 super + d
     ~/.config/rofi/scripts/multiscript.sh -r
 
 # launch a new instance of firefox
-mod3 + f
+super + alt + f
     firefox --new-instance
 
 # open terminal
-{super,mod3} + Return
-    WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty
+super + Return
+     alacritty
 
 # open a terminal with ncmpcpp
 super + n
-    WINIT_X11_SCALE_FACTOR=1.666666666666667 alacritty --class "Music" -e ~/.config/bspwm/scripts/ncmpcpp_launch.sh
+     alacritty --class "Music" -e ~/.config/bspwm/scripts/ncmpcpp_launch.sh
 
 #################
 # MISCELLANEOUS #
 #################
 
 # select emoji from list
-mod3 + e
+super + alt + e
     rofimoji
 
 # watch a youtube video
@@ -210,11 +207,11 @@ super + shift + y
     ytfzf -aD
 
 # insert greek letters
-mod3 + g
+super + alt + g
     rofimoji -f greek_and_coptic
 
 # insert kana
-mod3 + {_,shift + }j
+super + alt + {_,shift + }j
     rofimoji -f {hiragana,katakana}
 
 # autoclickers (might be unstable)
@@ -229,6 +226,3 @@ super + {_,shift + ,alt + }k
 super + c
     palette show
 
-# easter egg
-ctrl + shift + h + Left
-    xdotool type --clearmodifiers hallelujah
