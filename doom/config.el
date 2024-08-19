@@ -82,3 +82,15 @@
 
 (setq +latex-viewers '(zathura))
 ;;(require ‘latex-preview-pane) (latex-preview-pane-enable)
+
+(setq auto-mode-alist (append '((".*\\.gml$" . js-mode)) auto-mode-alist))
+
+(global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
+(global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)
+
+(setq org-latex-src-block-backend 'minted)
+(setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -%latex -interaction=nonstopmode -output-directory=%o %f"))
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("newfloat" "minted"))
+(setq org-latex-minted-options '(("breaklines" "true")
+                                 ("breakanywhere" "true")))
