@@ -29,7 +29,11 @@ if [[ -L $2 ]] || [[ -f $2 ]]; then
     sed -i "s/\".*\" # sed fg normal/\"$(cat ~/.cache/wal/colors | head -8 | tail -1)\" # sed fg normal/g" ~/.config/dunst/dunstrc
     eww daemon
     dunst &
-    betterlockscreen -u ~/.bkg
+    if [ "$XDG_SESSION_DESKTOP" = "sway" ] ; then
+        swww img --transition-type center "$2"
+    else
+        betterlockscreen -u "$2"
+    fi
     if [[ -L $2 ]]; then
         echo "not updating symlink"
     else
