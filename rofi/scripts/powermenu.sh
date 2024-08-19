@@ -35,7 +35,7 @@ case "$chosen" in
         systemctl suspend
         ;;
     "$log_out")
-        i3-msg exit &
+        swaymsg exit &
         pkill bspwm &
         ;;
     *) exit 1 ;;
