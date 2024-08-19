@@ -98,6 +98,8 @@ export YTFZF_CUSTOM_INTERFACES_DIR=~/.config/ytfzf/interfaces
 export CDPATH=:..:~
 export GPATH=$HOME/.go
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export XDG_CONFIG_HOME="${HOME}/.config"
 . "/home/antoine/.cache/wal/colors.sh"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -178,7 +180,21 @@ alias mlagents-learn="python ~/.local/lib/python3.10/site-packages/mlagents/trai
 
 ### Functions
 # Update script
-syu() { sudo clear; cat ~/.config/bigarch | figlet -ctf term; yay -Pw && time yay -Syu $@; sudo pacdiff; paccache -r; ncdu ~/.cache/yay }
+syu() { 
+    sudo clear
+    cat ~/.config/bigarch | figlet -ctf term
+    yay -Pw && time yay -Syu --sudoloop --answerdiff=y  $@
+    paccache -r
+    echo "~/.cache/yay was $(du -sh ~/.cache/yay 2> /dev/null)"
+    for d in $(find ~/.cache/yay -maxdepth 1 -type d); do
+        paccache -rq -c $d
+        ( rm $d/*.tar.gz ) 2> /dev/null
+        ( rm $d/*.tar.xz ) 2> /dev/null
+        ( rm $d/*.deb ) 2> /dev/null
+    done
+    echo "~/.cache/yay now $(du -sh ~/.cache/yay 2> /dev/null)"
+    sudo pacdiff
+}
 # Rebuild packages that require a certain recently updated package (often python)
 fix() { pacman -Qoq $1 | yay -S --rebuild - }
 # Reinstall a package
@@ -251,6 +267,8 @@ zstyle :compinstall filename '/home/antoine/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+VBOX_USB=usbfs
 
 
 PATH="/home/antoine/.perl5/bin${PATH:+:${PATH}}"; export PATH;
