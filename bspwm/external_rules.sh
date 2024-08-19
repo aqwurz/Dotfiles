@@ -28,3 +28,6 @@ if [ "$title" = "nmtui" ]; then
     xdotool windowmove $wid 582 276
     xdotool windowsize $wid 659 548
 fi
+if [ "$title" = "iwgtk" ]; then
+    xdotool windowmove $wid 2860 50 
+fi

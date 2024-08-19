@@ -19,5 +19,7 @@ do
         bspc config left_monocle_padding 0
         bspc config right_monocle_padding 0
     fi
-    bspc node @/ --balance
+    if [[ $num_wins -le 3 ]]; then
+        bspc node @/ --balance
+    fi
 done
