@@ -57,7 +57,7 @@ def read_ics(folder, name="personal"):
                     elif 'DESCRIPTION' in l:
                         event['description'] = l[12:-1]
                         i+=1
-                        while f[i][0:3] not in ["UID", "SUM", "LOC", "TIT", "URL"]:
+                        while f[i][0:3] not in ["UID", "SUM", "LOC", "TIT", "URL", "CLA", "END"]:
                             event['description'] += f[i][1:-1]
                             i+=1
                         i-=1
@@ -115,6 +115,8 @@ def read_evt(folder, name="personal"):
                             repeat_freq = 1
                         elif l[8:-1] == "weekly":
                             repeat_freq = 7
+                        elif l[8:-1] == "biweekly":
+                            repeat_freq = 14
                         elif l[8:-1] == "monthly":
                             repeat_freq = 30
                         elif l[8:-1] == "yearly":
@@ -144,9 +146,9 @@ def read_evt(folder, name="personal"):
                         shift += 365 if (dd.year % 100 == 0 and dd.year % 400 != 0) \
                                      or (dd.year % 4 != 0) \
                                      else 366
-                    e2['start'] = datetime.utcfromtimestamp(int(d.strftime("%s")) + 86400 * shift + 3600) \
+                    e2['start'] = datetime.utcfromtimestamp(int(d.strftime("%s")) + 86400 * shift + 7200) \
                         .astimezone(timezone('Europe/Berlin')).strftime("%Y-%m-%d %H:%M")
-                    e2['end'] = datetime.utcfromtimestamp(int(D.strftime("%s")) + 86400 * shift + 3600) \
+                    e2['end'] = datetime.utcfromtimestamp(int(D.strftime("%s")) + 86400 * shift + 7200) \
                         .astimezone(timezone('Europe/Berlin')).strftime("%Y-%m-%d %H:%M") if D != "nope" else "N/A"
                     #e2['variable'] = name+str(len(events))
                     dd = datetime.strptime(e2['start'], "%Y-%m-%d %H:%M")
@@ -382,6 +384,7 @@ if __name__ == "__main__":
             + read_ics('/home/antoine/.calendar/work/', "work") \
             + read_evt('/home/antoine/.calendar/dnd/', "dnd") \
             + read_evt('/home/antoine/.calendar/personal', "personal") \
+            + read_ics('/home/antoine/.calendar/personal', "personal") \
             + read_evt('/home/antoine/.calendar/jojo/', "jojo") \
             + read_evt('/home/antoine/.calendar/lan', "lan") \
             + boring_calendar()
