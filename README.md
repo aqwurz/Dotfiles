@@ -4,15 +4,15 @@
 </div>
 <ul>
   <li><b>OS:</b> Arch Linux btw</li>
-  <li><b>DM:</b> lightdm</li>
+  <li><b>DM:</b> GDM</li>
   <li><b>WM:</b> bspwm</li>
   <li><b>Terminal:</b> Alacritty</li>
   <li><b>Shell:</b> zsh</li>
-  <li><b>Compositor:</b> <a href="https://github.com/pijulius/picom">picom-pijulius</a></li>
+  <li><b>Compositor:</b> picom</li>
   <li><b>Colour scheme:</b> pywal</li>
   <li><b>Launcher:</b> rofi</li>
   <li><b>Lock screen:</b> betterlockscreen</li>
-  <li><b>Editor:</b> Neovim</li>
+  <li><b>Editor:</b> Neovim, Doom Emacs</li>
   <li><b>Browser:</b> Firefox (something else would be preposterous)</li>
 </ul>
 
