@@ -1,6 +1,6 @@
 {
     "notifyAboutUpdates": true,
-    "autoUpdate": true,
+    "autoUpdate": false,
     "useQuickCss": false,
     "themeLinks": [],
     "enableReactDevtools": true,
@@ -367,6 +367,33 @@
             "enabled": false
         },
         "Wikisearch": {
+            "enabled": false
+        },
+        "AlwaysAnimate": {
+            "enabled": false
+        },
+        "PinDMs": {
+            "enabled": false
+        },
+        "SendTimestamps": {
+            "enabled": false
+        },
+        "ShowAllMessageButtons": {
+            "enabled": false
+        },
+        "ShowConnections": {
+            "enabled": false
+        },
+        "ShowMeYourName": {
+            "enabled": false
+        },
+        "TextReplace": {
+            "enabled": false
+        },
+        "USRBG": {
+            "enabled": false
+        },
+        "VencordToolbox": {
             "enabled": false
         }
     },

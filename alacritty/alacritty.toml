@@ -16,7 +16,7 @@ family = "SourceCodePro"
 
 [window]
 dynamic_padding = true
-opacity = 0.9
+opacity = 1 # 0.9
 
 [window.padding]
 x = 30

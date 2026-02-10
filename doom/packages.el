@@ -53,3 +53,7 @@
 (package! ewal-doom-themes)
 (package! ess)
 (package! evil-numbers)
+(package! paradox-mode
+  :recipe (:host github :repo "Drup/paradox.el"
+                 :files ("paradox.el")))
+(package! org-roam-ui)

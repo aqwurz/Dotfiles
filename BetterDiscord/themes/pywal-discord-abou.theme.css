@@ -12,27 +12,27 @@
     --wallpaper: url("/home/antoine/.bkg");
 
     /* Special */
-    --background: #fbfbfb;
-    --foreground: #0D1506;
-    --cursor: #0D1506;
+    --background: #f9fafd;
+    --foreground: #2A2520;
+    --cursor: #2A2520;
 
     /* Colors */
-    --color0: #fbfbfb;
-    --color1: #4E5352;
-    --color2: #5A6061;
-    --color3: #6C6C6E;
-    --color4: #777D82;
-    --color5: #A9AEB3;
-    --color6: #BBBEC3;
-    --color7: #0D1506;
-    --color8: #8b8b8b;
-    --color9: #4E5352;
-    --color10: #5A6061;
-    --color11: #6C6C6E;
-    --color12: #777D82;
-    --color13: #A9AEB3;
-    --color14: #BBBEC3;
-    --color15: #0D1506;
+    --color0: #f9fafd;
+    --color1: #C19379;
+    --color2: #7A7F84;
+    --color3: #A29E97;
+    --color4: #C9C1B3;
+    --color5: #9CAEC9;
+    --color6: #A5B8D1;
+    --color7: #2A2520;
+    --color8: #818891;
+    --color9: #C19379;
+    --color10: #7A7F84;
+    --color11: #A29E97;
+    --color12: #C9C1B3;
+    --color13: #9CAEC9;
+    --color14: #A5B8D1;
+    --color15: #2A2520;
 }
 /**  colors will come from .cache/wal/colors.css as variables defined in :root
  *  see: cat $HOME/.cache/wal/colors.css

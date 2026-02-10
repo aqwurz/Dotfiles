@@ -1,0 +1,98 @@
+@import url("colors.css");
+
+#waybar {
+    background-color: @background;
+    color: @foreground;
+    font-family: "Lato", "Font Awesome 6 Free Solid", "Font Awesome 6 Brands", "siji", "Unifont", monospace;
+    font-size: 13px;
+}
+
+#workspaces {
+    margin-left: 10px;
+    margin-right: 5px;
+    font-family: "Unifont", monospace;
+    font-size: 18px;
+}
+
+#workspaces button {
+    min-width: 10px;
+    padding: 3px;
+    border: none;
+    border-radius: 0;
+    color: @color5;
+}
+
+#workspaces button:hover {
+    border: none;
+    background-color: @background;
+    color: @color1;
+    border: none;
+}
+
+#workspaces button.focused {
+    background-color: @background;
+    color: @foreground;
+}
+
+#workspaces button.focused:hover {
+    background-color: @background;
+    color: @color1;
+}
+
+#cpu {
+    margin-left: 12px;
+    margin-right: 3px;
+}
+
+#temperature {
+    margin-right: 18px;
+}
+
+#custom-nvidia {
+    margin-right: 18px;
+}
+
+#memory {
+    margin-right: 18px;
+}
+
+#pulseaudio-slider {
+    min-width: 100px;
+}
+
+#pulseaudio-slider trough {
+    background-color: @foreground;
+}
+
+#pulseaudio-slider highlight {
+    background-color: @color6;
+}
+
+#custom-pacman {
+    margin-right: 18px;
+}
+
+#language {
+    margin-right: 18px;
+}
+
+#network {
+    margin-right: 18px;
+}
+
+#disk {
+    margin-right: 18px;
+}
+
+#custom-date {
+    margin-right: 18px;
+}
+
+#tray {
+    margin-right: 18px;
+}
+
+#tray > * {
+    margin-left: 2px;
+    margin-right: 2px;
+}

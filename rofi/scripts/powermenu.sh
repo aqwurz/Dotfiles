@@ -27,7 +27,8 @@ case "$chosen" in
     "$lock")
         #i3lock -B=1000 -k --keylayout 2 --indicator --insidecolor ffffffff --insidevercolor ffffffff --datestr="%Y-%m-%d"
         #xscreensaver-command -lock
-        physlock -p "$(figlet -cf slant antoine | lolcat; echo "$(fortune -s | figlet -cf term)")"
+        #physlock -p "$(figlet -cf slant antoine | lolcat; echo "$(fortune -s | figlet -cf term)")"
+        swaylock -i ~/.bkg -s fill -l -e --indicator --inside-color 00000080 --inside-ver-color 20202080 --inside-wrong-color 20000080 --ring-color FFFFFF00 --ring-ver-color 808080FF --ring-wrong-color FF0000FF --key-hl-color 00FF00FF --bs-hl-color 008000FF --line-color 00000000 --separator-color 00000000 --clock --timestr '%H:%M:%S' --datestr '%Y-%m-%d' --grace 5 --text-ver hmm --text-wrong no
         ;;
     "$suspend")
         mpc -q pause
@@ -36,6 +37,7 @@ case "$chosen" in
         ;;
     "$log_out")
         swaymsg exit &
+        niri msg action quit &
         pkill bspwm &
         ;;
     *) exit 1 ;;

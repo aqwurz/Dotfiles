@@ -28,8 +28,9 @@ if [[ -L $2 ]] || [[ -f $2 ]]; then
     sed -i "s/\".*\" # sed fg low/\"$(cat ~/.cache/wal/colors | head -7 | tail -1)\" # sed fg low/g" ~/.config/dunst/dunstrc
     sed -i "s/\".*\" # sed fg normal/\"$(cat ~/.cache/wal/colors | head -8 | tail -1)\" # sed fg normal/g" ~/.config/dunst/dunstrc
     eww daemon
+    pkill -USR2 waybar
     dunst &
-    if [ "$XDG_SESSION_DESKTOP" = "sway" ] ; then
+    if [ "$XDG_SESSION_DESKTOP" = "sway" ] || [ "$XDG_SESSION_DESKTOP" = "niri" ]; then
         swww img --transition-type center "$2"
     else
         betterlockscreen -u "$2"

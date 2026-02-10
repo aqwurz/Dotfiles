@@ -37,12 +37,12 @@ bspc rule -a \* border=off
 bspc rule -a Scratchpad state=floating hidden=on #locked=on sticky=on 
 bspc rule -a Picture-in-Picture state=floating sticky=on
 bspc rule -a firefox:Toolkit:* state=floating sticky=on
-bspc rule -a steam state=floating
 bspc rule -a iwgtk state=floating
 bspc rule -a mpv layer=above
+bspc rule -a feh layer=above
 
 wal -Ren
-
+pkill picom; picom --detect-rounded-corners &
 
 #if [[ $(cat ~/.bspwm_inplace) == 0 ]]; then
 if [[ ! $(ps -A | grep gammastep) ]]; then
@@ -59,7 +59,6 @@ if [[ ! $(ps -A | grep gammastep) ]]; then
     pkexec swhkd &
     mkfifo /tmp/xobpipe &
     tail -f /tmp/xobpipe | xob -c ~/.cache/wal/xob.cfg &
-    pkill picom; picom --respect-prop-shadow --detect-rounded-corners &
     gammastep &
     polybar -r default &
     polybar -r monitor-normal &

@@ -6,14 +6,17 @@ bspc rule -a feh state=floating
 bspc rule -a nmtui state=floating
 bspc rule -a matplotlib state=floating
 bspc rule -a Music state=floating
+bspc rule -a Picture-in-Picture:*:* state=floating
 bspc rule -a *:Picture-in-Picture:* state=floating
 bspc rule -a *:*:"Picture in picture" state=floating
+bspc rule -a "Friends List" state=floating
 
 # set workspaces and states for selected programs
 bspc rule -a zoom desktop='0' state=floating follow=on
 bspc rule -a Slack desktop='5' follow=off
 bspc rule -a FreeTube desktop='7' follow=on
 bspc rule -a discord desktop='9' follow=off
+bspc rule -a vesktop desktop='9' follow=off
 bspc rule -a minecraft desktop='2'
 
 # stolen wholesale from https://github.com/SwiftyChicken/dotfiles/,
