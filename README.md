@@ -4,14 +4,13 @@
 </div>
 <ul>
   <li><b>OS:</b> Arch Linux btw</li>
-  <li><b>DM:</b> GDM</li>
-  <li><b>WM:</b> bspwm</li>
+  <li><b>DM:</b> SDDM</li>
+  <li><b>Compositor:</b> niri</li>
   <li><b>Terminal:</b> Alacritty</li>
   <li><b>Shell:</b> zsh</li>
-  <li><b>Compositor:</b> picom</li>
   <li><b>Colour scheme:</b> pywal</li>
   <li><b>Launcher:</b> rofi</li>
-  <li><b>Lock screen:</b> betterlockscreen</li>
+  <li><b>Lock screen:</b> swaylock</li>
   <li><b>Editor:</b> Neovim, Doom Emacs</li>
   <li><b>Browser:</b> Firefox (something else would be preposterous)</li>
 </ul>
